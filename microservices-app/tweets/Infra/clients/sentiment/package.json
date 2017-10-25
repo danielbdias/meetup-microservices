@@ -1,0 +1,6 @@
+{
+  "name": "SentimentApiClient",
+  "private": true,
+  "description": "Client to access SentimentAnalysis resources",
+  "main": "./sentiment.js"
+}

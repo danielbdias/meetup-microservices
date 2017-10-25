@@ -1,6 +1,7 @@
 from bottle import request
 
 from infra.api.endpoints.response import json_response
+from domain.useCases.sentimentClassifier import classifyText
 
 class SentimentEndpointCommand(object):
   def register(self, app):
@@ -12,7 +13,7 @@ class SentimentEndpointCommand(object):
 
     output = {
       'analysedText': text_to_analyse,
-      'sentiment': 'neutral'
+      'sentiment': classifyText(text_to_analyse)
     }
 
     return json_response(output)

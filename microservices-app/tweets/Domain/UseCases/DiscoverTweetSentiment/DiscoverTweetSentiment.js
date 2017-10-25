@@ -1,17 +1,11 @@
 const dependencies = {
-  sentiment: require('sentiment')
+  sentimentClient: require('Infra/clients/sentiment')
 }
 
-module.exports = function DiscoverTweetSentiment (tweetText, injection) {
-  const { sentiment } = Object.assign({}, dependencies, injection)
+module.exports = async function DiscoverTweetSentiment (tweetText, injection) {
+  const { sentimentClient } = Object.assign({}, dependencies, injection)
 
-  const result = sentiment(tweetText)
+  const result = await sentimentClient.classifyText(tweetText, injection)
 
-  if (result.score > 0.5) {
-    return 'positive'
-  } else if (result.score < -0.5) {
-    return 'negative'
-  }
-
-  return 'neutral'
+  return result.sentiment
 }

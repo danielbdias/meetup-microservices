@@ -6,13 +6,13 @@ const dependencies = {
 
 const Tweet = require('Domain/Entities/Tweet')
 
-const processSingleTweet = (rawTweet, injection) => {
+const processSingleTweet = async (rawTweet, injection) => {
   const { TweetRepository, DiscoverTweetSentiment } = Object.assign({}, dependencies, injection)
 
   const tweet = new Tweet(rawTweet)
 
   // classify
-  tweet.sentiment = DiscoverTweetSentiment(tweet.text, injection)
+  tweet.sentiment = await DiscoverTweetSentiment(tweet.text, injection)
 
   // save in database
   return TweetRepository.save(tweet)
