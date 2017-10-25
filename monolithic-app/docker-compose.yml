@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  tweets:
+    build: ./
+    command: "bash -c 'yarn && yarn start'"
+    volumes:
+      - ./:/project
+    links:
+      - postgres
+    environment:
+     - DATABASE_HOST=postgres
+    ports:
+     - 8000:8000
+
+  postgres:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=root
+      - POSTGRES_DB=tweets
+    ports:
+      - 5432:5432
